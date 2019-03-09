@@ -6,5 +6,23 @@ from sklearn.datasets import load_boston
 boston_data = load_boston()
 
 dir(boston_data)
-
 print(boston_data['DESCR'])
+print(boston_data.keys())
+
+print(boston_data['target'])
+print(boston_data['feature_names'])
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+
+boston = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
+boston.head()
+
+for col in boston:
+   idx=boston.columns.get_loc(col)
+   sns.set(rc={'figure.figsize':(11.7,8.27)})
+   sns.distplot(boston[col],rug=False,bins=30).set_title("Histogram of {0}".format(col))
+   plt.savefig("./{0}_{1}.png".format(idx,col), dpi=100)
+   plt.close()
