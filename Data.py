@@ -26,3 +26,11 @@ for col in boston:
    sns.distplot(boston[col],rug=False,bins=30).set_title("Histogram of {0}".format(col))
    plt.savefig("./{0}_{1}.png".format(idx,col), dpi=100)
    plt.close()
+
+
+correlation_matrix = boston.corr().roud(2)
+heatmap = sns.heatmap(data=correlation_matrix, annot=True)
+myfig = heatmap.get_figure()
+myfig.savefig('output.png')
+plt.close()
+
