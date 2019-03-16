@@ -52,7 +52,7 @@ print(X_test.shape)
 print(Y_train.shape)
 print(Y_test.shape)
 
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, BayesianRidge
 from sklearn.metrics import mean_squared_error
 from math import sqrt
 from sklearn.metrics import r2_score
@@ -61,19 +61,20 @@ from sklearn import linear_model
 lin_model = LinearRegression()
 lin_model.fit(X_train, Y_train)
 
-Y_train_predict = lin_model.predict(X_train)
+Y_test_predict = lin_model.predict(X_test)
 Y_expected = Y_test
 
-lr_rmse = sqrt(mean_squared_error(Y_expected, Y_train_predict))
+lr_rmse = sqrt(mean_squared_error(Y_expected, Y_test_predict))
 
-plt.figure(figsize(20,10), dpi=300)
+fullfigure = plt.figure(figsize=(20,10), dpi=300)
 plt.subplot(2, 2, 1)
 
-sns.regplot(Y_expexted, Y_train_predict)
+regres = sns.regplot(Y_expected, Y_test_predict)
 plt.ylabel('Predicted Value')
 
+
 # Fit the values in the model
-BayRig_reg = linear.model.BayesianRidge()
+BayRig_reg = BayesianRidge()
 BayRig_reg.fit(X_train, Y_train)
 
 predicted_Y = BayRig_reg.predict(X_test)
@@ -85,5 +86,5 @@ BayRig_rmse = sqrt(mean_squared_error(expected_Y, predicted_Y))
 plt.subplot(2,2,2)
 sns.regplot(expected_Y, predicted_Y, color = 'blue')
 
-
+fullfigure.savefig('Prediction.png')
 
